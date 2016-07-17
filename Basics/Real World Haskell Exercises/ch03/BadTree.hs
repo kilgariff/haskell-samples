@@ -1,0 +1,16 @@
+-- file: ch03/BadTree.hs
+data Tree a = Node a (Tree a) (Tree a) | Empty
+
+-- The following wouldn't work because it uses the name 'a'
+-- twice in a single pattern:
+
+--bad_nodesAreSame (Node a _ _) (Node a _ _) = Just a
+--bad_nodesAreSame _ _ = Nothing
+
+-- Instead, guards can be used to test for equality of
+-- parameters:
+
+nodesAreSame :: Eq a => Tree a -> Tree a -> Maybe a
+nodesAreSame (Node a _ _) (Node b _ _)
+  | a == b = Just a
+nodesAreSame _ _ = Nothing
